@@ -3,18 +3,11 @@
   "name": "Daily report mail",
   "version": "1.0.1",
   "description": "Create link of daily reporter",
-  "permissions": ["tabs", "storage"],
-  "background": {
-    "scripts": ["background.js"],
-    "permissions": ["https://trello.com/"]
-  },
+  "permissions": ["tabs"],
   "content_scripts": [
     {
       "matches": ["https://trello.com/*"],
       "js": ["script.js"]
     }
-  ],
-  "page_action": {
-    "default_popup": "popup.html"
-  }
+  ]
 }

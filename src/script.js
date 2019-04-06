@@ -7,44 +7,15 @@ import test_data from './test_data.json';
 // メールを送信する
 let exportMail = () => {
   createExportText().then(data => {
-    const address = getSendAddress();
+    const address = test_data.address;
     const subjet = `${moment().format('YYYY/MM/DD')} ${test_data.name} 日報`;
     const body = escapeMailBody(data);
     window.location.href = `mailto:${address}?subject=${subjet}&body=${body}`;
   });
 };
 
-// 送信先のアドレスを返すPromiseを返す
-function getSendAddress() {
-  // let member_name = document
-  //   .getElementsByClassName('member-avatar')[0]
-  //   .getAttribute('title');
-  // let user_name = /^.*\((\w+)\)$/.exec(member_name)[1];
-
-  // return fetch(`/1/members/${user_name}?fields=name,email`, {
-  //   credentials: 'include'
-  // })
-  //   .then(res => {
-  //     return res.json();
-  //   })
-  //   .then(json => {
-  //     return Promise.resolve(json.email);
-  //   });
-  return test_data.address;
-}
-
-// 送信するボードの本文を作成する
+// 送信する本文を作成する
 function createExportText() {
-  let board_export_url = document
-    .getElementsByClassName('js-export-json')[0]
-    .getAttribute('href');
-  let parts = /\/b\/(\w{8})\.json/.exec(board_export_url);
-
-  if (!parts) {
-    console.log('Board menu not open.');
-    return Promise.reject();
-  }
-
   const lists_id = test_data.list_id;
 
   return fetch(`/1/lists/${lists_id}/cards`, {
@@ -63,28 +34,6 @@ function createExportText() {
       mail_body += '\n\n';
       return Promise.resolve(mail_body);
     });
-}
-
-// カードリストを作成する
-function getCardLists(datas) {
-  let lists = [];
-  for (let list_data of datas.lists) {
-    let list = {
-      id: list_data.id,
-      name: list_data.name,
-      cards: []
-    };
-    lists.push(list);
-
-    for (let card_data of datas.cards) {
-      if (list.id === card_data.idList) {
-        list.cards.push({ name: card_data.name });
-      } else {
-        continue;
-      }
-    }
-  }
-  return lists;
 }
 
 // メールの文字列をエスケープする

@@ -9,15 +9,11 @@ module.exports = (env, argv) => {
 
   const setting = {
     context: path.join(__dirname, 'src'),
-    entry: {
-      background: './background.js',
-      script: './script.js',
-      popup: './popup.js'
-    },
+    entry: 'script.js',
     output: {
       path: path.resolve(__dirname, './build/'),
       publicPath: '../build/',
-      filename: '[name].js'
+      filename: 'script.js'
     },
     module: {
       rules: [
