@@ -21,6 +21,9 @@ g clone https://github.com/rhythm191/daily-report-mail.git
 }
 ```
 
+If your board url is `https://trello.com/b/your_board_id/your_board_name`,
+you can get list_id from `https://trello.com/1/boards/your_board_id/lists?cards=none`
+
 3. Build script
 
 ```
